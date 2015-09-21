@@ -96,7 +96,7 @@ export default class Buffer extends events.EventEmitter {
     }
 
     writeString(string: string, attributes = this.attributes): void {
-        for (var i = 0; i !== string.length; ++i) {
+        for (var i = 0; i !== this.cursor.getPosition().column+1; ++i) {
             this.write(string.charAt(i), attributes);
         }
     }

@@ -43,6 +43,8 @@ export default React.createClass({
 
         meaningfulKeysDownStream.filter(keys.deleteWord).forEach(this.deleteWord);
 
+        meaningfulKeysDownStream.filter(keys.leftArrow).forEach(this.moveLeft);
+
         navigateHistoryStream.forEach(this.navigateHistory);
         navigateAutocompleteStream.forEach(this.navigateAutocomplete);
 
@@ -82,6 +84,21 @@ export default React.createClass({
     setText(text) {
         this.props.invocation.setPromptText(text);
         this.setState({caretPosition: this.props.prompt.buffer.cursor.column()});
+    },
+    moveLeft(event) {
+        this.props.prompt.buffer.cursor.moveRelative({horizontal: -1});
+        var win = window;
+        if(win.getSelection){
+            console.log('window exists');
+            var sel = win.getSelection();
+
+            if(sel.rangeCount > 0) {
+                var textNode = sel.focusNode;
+                var offset = sel.focusOffset - 1;
+                sel.collapse(textNode, Math.min(textNode.length, offset));
+            }
+        }
+        this.props.prompt.buffer.cursor.setBlink(true);
     },
     isEmpty() {
         return this.getText().replace(/\s/g, '').length === 0;
@@ -208,4 +225,3 @@ export default React.createClass({
         )
     }
 });
-

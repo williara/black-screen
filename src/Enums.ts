@@ -5,7 +5,8 @@ export enum CharCode {
     Backspace = 8,
     NewLine = 10,
     CarriageReturn = 13,
-    Delete = 127
+    Delete = 127,
+    LeftArrow = 37
 }
 
 export var ColorIndex: any[] = [

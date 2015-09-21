@@ -9,6 +9,7 @@ var keys = {
     goDown: event => (event.ctrlKey && event.keyCode === 78) || event.keyCode === 40,
     enter: event => event.keyCode === 13,
     tab: event => event.keyCode === 9,
+    leftArrow: event => event.keyCode === 37,
     deleteWord: event => event.ctrlKey && event.keyCode === 87
 };
 
